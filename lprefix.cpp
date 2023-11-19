@@ -1,16 +1,46 @@
-#pragma GCC optimize("O3,unroll-loops")
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
 using namespace std;
 
-// code by #CodeCrafters_Nholl (danglongnhat)
+string findLongestPrefix(const vector<string>& strings) {
+    int n = strings.size();
+    if (n == 0) {
+        return "";
+    }
 
-int main ()  {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
+    sort(strings.begin(), strings.end());
 
-    int n;  cin >> n;
-    for (int i = 0; )
+    string longestPrefix = "";
+    for (int i = 1; i < n; ++i) {
+        int len = min(strings[i - 1].length(), strings[i].length());
+        string commonPrefix = "";
+        for (int j = 0; j < len; ++j) {
+            if (strings[i - 1][j] == strings[i][j]) {
+                commonPrefix += strings[i - 1][j];
+            } else {
+                break;
+            }
+        }
+        longestPrefix = max(longestPrefix, commonPrefix);
+    }
+
+    return longestPrefix;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    vector<string> strings(n);
+
+    for (int i = 0; i < n; ++i) {
+        cin >> strings[i];
+    }
+
+    string result = findLongestPrefix(strings);
+
+    cout << result << endl;
 
     return 0;
 }

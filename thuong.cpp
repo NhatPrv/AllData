@@ -9,11 +9,14 @@ int main ()  {
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    long long n;    cin >> n;
+    long long n;
+    cin >> n;
+
     long long l = 1;
     long long r = 1;
     long long sum = 0;
-    for (r;r<=n;r+=2) {
+
+    while (r <= n) {
         sum += r;
         if (sum > n) {
             while (sum > n) {
@@ -21,11 +24,11 @@ int main ()  {
                 l += 2;
             }
         }
-        else if (sum == n) {
-            cout << (l+r)/2;
+        if (sum == n) {
+            cout << (l + r) / 2;
             return 0;
         }
+        r += 2;
     }
-
     return 0;
 }

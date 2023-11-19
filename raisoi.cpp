@@ -8,6 +8,8 @@ int main ()  {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
+    // freopen("RAISOI.INP", "r", stdout);
+    // freopen("RAISOI.OUT", "w", stdout);
 
     int n;  cin >> n;
     vector<long long> a(n+1);
@@ -17,21 +19,22 @@ int main ()  {
     long long mx = 0;
     for (int i=1;i<=n;i++) {
         if (a[i] == 0) continue;
-        else  {
-            long long mod = a[i]%n;
-            if (mod + i > n-1) {
-                mod = (mod+i) - n;
-                long long cking = a[mod] + a[i]/n;
-                mx = max(mx, cking);
-            } 
-            else {
-                long long cking = a[mod+1] + a[i]/n;
-                mx = max(mx, cking);
-            } 
-        }
+        // left --> right
+        long long mod = (a[i] + i) % n + 1;
+        if (mod == i) continue;
+        long long ck = a[mod] + (a[i]) / n; 
+        if (ck > mx) mx = ck;
+    }
+    reverse(a.begin(), a.end());
+    for (int i=1;i<=n;i++) {
+        if (a[i] == 0) continue;
+
+        long long mod = (a[i] + i) % n + 1;
+        if (mod == i) continue;
+        long long ck = a[mod] + (a[i]) / n; 
+        if (ck > mx) mx = ck;
     }
     cout << mx;
-
 
     return 0;
 }
