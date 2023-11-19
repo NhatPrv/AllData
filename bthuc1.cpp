@@ -2,6 +2,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+long long mod = 1000000007;
+
 // code by #CodeCrafters_Nholl (danglongnhat)
 
 int main ()  {
@@ -9,29 +11,20 @@ int main ()  {
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    long long n, k;
-    cin >> n >> k;
-    long long ans = 1;
-    vector<long long> arr(k);
-    for (long long i = 0; i < k; i++) {
-        cin >> arr[i];
-    }
-    if (k == 1) {
-        if (n == 1) {
-            cout << 1;
-            return 0;
-        }
-        else if (n == 2) {
-            cout << 2;
-            return 0;
-            if ()
+    long long n;
+    cin >> n;
+    vector<long long> a(n);
+    for (long long i=0;i<n;i++) cin >> a[i];
+    long long ans = 0;
+    for (long long i = 0; i < n-2; i++) {
+        for (long long j = i+1; j < n-1; j++) {
+            for (long long k = j+1; k < n; k++) {
+                ans += (a[i] * a[j] - 2*a[k]);
+                ans %= mod;
+            }
         }
     }
-    sort(arr.begin(), arr.end());
-    for (long long i = 1; i < k; i++) {
-        if (arr[i] - arr[i - 1] != 1) ans++;
-    }
+    if (ans < 0) ans+=mod;
     cout << ans;
-
     return 0;
 }
