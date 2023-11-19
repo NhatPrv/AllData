@@ -1,2 +1,1 @@
-
-        cout << sum << endl;
+aaabbb

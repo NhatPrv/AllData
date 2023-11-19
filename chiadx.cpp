@@ -6,7 +6,7 @@ using namespace std;
 
 bool dx(string s, int l, int r) {
     for (int i = l;i < (l+r)/2 ;i++) {
-        if (s[i] != s[l - 1- i]) return false;
+        if (s[i] != s[r - 1 - i+l]) return false;
     }
     return true;
 }
@@ -17,14 +17,14 @@ int main ()  {
     cout.tie(nullptr);
 
     string s;   cin >> s;
-    for (int i = s.size(); i > 0; i--) {
+    for (int i = s.size()-1; i > 0; i--) {
         if (dx(s, 0, i) && dx(s, i, s.size())) {
             for (int j = 0; j < i; j++) {
-                cout << s[i];
+                cout << s[j];
             }
             cout << endl;
             for (int j = i;j < s.size(); j++) {
-                cout << s[i];
+                cout << s[j];
             }
             return 0;
         }
