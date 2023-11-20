@@ -1,46 +1,46 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
+#pragma GCC optimize("O3,unroll-loops")
+#include <bits/stdc++.h>
 using namespace std;
 
-string findLongestPrefix(const vector<string>& strings) {
-    int n = strings.size();
-    if (n == 0) {
-        return "";
+// code by #CodeCrafters_Nholl (danglongnhat)
+
+int main ()  {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+
+    int n;  cin >> n;
+    vector<string> s(n);
+    for (int i = 0; i < n; i++) {
+        cin >> s[i];
     }
-
-    sort(strings.begin(), strings.end());
-
-    string longestPrefix = "";
-    for (int i = 1; i < n; ++i) {
-        int len = min(strings[i - 1].length(), strings[i].length());
-        string commonPrefix = "";
-        for (int j = 0; j < len; ++j) {
-            if (strings[i - 1][j] == strings[i][j]) {
-                commonPrefix += strings[i - 1][j];
-            } else {
-                break;
+    vector<char> maxSub;
+    for (int i=0; i < n-1; i++) {
+        for (int j = i+1; j < n; j++) {
+            vector<char> check;
+            for (int k = 0; k < s[i].size() && k < s[j].size(); k++) {
+                if (s[i][k] == s[j][k]) {
+                    check.push_back(s[i][k]);
+                }
+                else {
+                    break;
+                }
+            }
+            if (maxSub.size() < check.size()) {
+                maxSub = check;
+            }
+            else if (maxSub.size() == check.size()) {
+                for (int x = 0; x < maxSub.size(); x++) {
+                    if (maxSub[x] > check[j]) {
+                        maxSub = check;
+                        break;
+                    }
+                }
             }
         }
-        longestPrefix = max(longestPrefix, commonPrefix);
     }
+    for (char c: maxSub) cout << c;
 
-    return longestPrefix;
-}
-
-int main() {
-    int n;
-    cin >> n;
-    vector<string> strings(n);
-
-    for (int i = 0; i < n; ++i) {
-        cin >> strings[i];
-    }
-
-    string result = findLongestPrefix(strings);
-
-    cout << result << endl;
 
     return 0;
 }

@@ -39,7 +39,8 @@ int main ()  {
         sumExponent += sumOfExponents(a[i]);
         mx = max(mx, sumOfExponents(a[i]));
     }
-    cout << sumExponent - mx;
+    if (sumExponent == 0) cout << 1;
+    else cout << sumExponent - mx;
 
     return 0;
 }

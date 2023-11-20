@@ -1,18 +1,27 @@
-#pragma GCC optimize("O3,unroll-loops")
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+
 using namespace std;
 
-// code by #CodeCrafters_Nholl (danglongnhat)
+vector<pair<long long, long long>> findPairs(long long m, long long n) {
+    vector<pair<long long, long long>> result;
 
-int main ()  {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
+    for (long long q = 1; q < n; ++q) {
+        long long p = (q + n - 1) / n * m - 1;
+        if (p < m) {
+            result.push_back({p, q});
+        }
+    }
 
-    freopen("input", "r", stdin);
-    freopen("output", "w", stdout);
+    return result;
+}
 
-    
+int main() {
+    long long m, n;
+    cin >> m >> n;
+
+    vector<pair<long long, long long>> pairs = findPairs(m, n);
+    cout << pairs.size();
 
     return 0;
 }

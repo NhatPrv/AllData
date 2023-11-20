@@ -18,6 +18,8 @@ int main ()  {
     cin.tie(nullptr);
     cout.tie(nullptr);
 
+    cout << ('a' < 'b');
+
     long long n;    cin >> n;
     for (int i = n+1;; i++) {
         if (nto(i)) {

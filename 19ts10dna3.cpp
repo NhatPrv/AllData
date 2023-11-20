@@ -14,21 +14,13 @@ int main ()  {
     long long small = (n*(n-1))+1;
     long long big = (n*(n+1))+1;
     long long ans = big*small;
-    if (n == 1) {
-        cout << 3; return 0;
+    long long tmp;
+    tmp = sqrt(ans);
+    if ((tmp*(tmp-1)) + 1 == ans) {
+        cout << (int)sqrt(ans);
     }
-    ans -= 1;
-    long long l = 0, r = 10000000001;
-    long long m;
-    while (l<r) {
-        m = (r+l)/2;
-        if (ans == m*(m-1)) {
-            cout << m;
-            return 0;
-        }
-        else if (ans > m*(m-1)) l = m+1;
-        else r = m-1;
-    }
-    cout << m;
+    else cout << (int)sqrt(ans) +1;
+    
+    cout << ans + 1;
     return 0;
 }

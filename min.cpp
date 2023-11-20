@@ -12,32 +12,48 @@ int main ()  {
     int k;  cin >> k;
     string s;   cin >> s;
     vector<char> vec;
+    int countZeros = 0;
     for (int i = 0; i < s.size(); i++) {
         if (s[i] >= '0' && s[i] <= '9') {
             vec.push_back(s[i]);
+            if (s[i] == '0') countZeros++;
         }
     }
-    int index = 0;
-    for (int i=0;i<k;i++) {
-        if (vec[i] == '0') {
-            index = i;
-            k=k-i-1;
+    if (countZeros >= k) {
+        for (int i = 0; i < k; i++) {
+            cout << 0;
         }
+        return 0;
     }
 
-    char finding = '9';
-    while (k > 1) {
-        for (int i = index ;i < vec.size() && k > 0; i++) {
-            if (vec[i] == finding) {
-                vec[i] = 'f';
-                k--;
+    int index = 0;
+    char c = '9';
+    while (vec.size() > k) {
+        while (index > 0 && vec[index] == '0') {
+            index ++;
+            c = '9';
+        }
+        for (int i=index;i<vec.size()>k;) {
+            if (vec.size() <= k) break;
+            if (vec[i] == '0') {
+                c = (char)((int)c - 1);
+                break;
+            }
+            else if (vec[i] != c) {
+                i++;
+            }
+            else if (vec[i] == c) {
+                vec.erase(vec.begin() + i);
             }
         }
-        finding = (char)((int)(finding - 1));
+        if (c == '0') c = '9';
+        cout << " ))) ";
     }
-    for (int i = index; i < vec.size(); i++) {
-        if (vec[i] >= '0' && vec[i] <= '9')  cout << vec[i];
+
+    for (int i=0;i<vec.size();i++) {
+        cout << vec[i];
     }
+    
 
     return 0;
 }
