@@ -1,2 +1,2 @@
 
-                cout << " LO ";
+    // freopen("PHANSO.out", "w", stdout);

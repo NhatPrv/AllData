@@ -1,50 +1,39 @@
-#pragma GCC optimize("O3,unroll-loops")
-#include <bits/stdc++.h>
-using namespace std;
+#pragma GCC optimize("03,unroll-loops")
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
-// code by #CodeCrafters_Nholl (danglongnhat)
+//  code by #CodeCrafters_Nholl (danglongnhat)
 
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
+size_t commonSuffix(const std::string& str1, const std::string& str2) {
+    size_t len1 = str1.length();
+    size_t len2 = str2.length();
+    size_t i = 0;
 
-    int N;
-    cin >> N;
-
-    vector<int> arr(N);
-    unordered_map<int, int> count;
-
-    for (int i = 0; i < N; ++i) {
-        cin >> arr[i];
-        count[arr[i]]++;
+    while (i < len1 && i < len2 && str1[len1-1-i] == str2[len2-1-i]) {
+        i++;
     }
+    return i;
+}
 
-    long long maxSum = 0;
-    long long totalCount = 0;
+int main () {
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
 
-    // Duyệt qua tất cả các bộ tam hợp có thể
-    for (int i = 0; i < N; ++i) {
-        for (int j = i + 1; j < N; ++j) {
-            int third = 2 * arr[j] - arr[i];
-            
-            // Kiểm tra xem third có trong dãy không và third không trùng với i và j
-            if (count.find(third) != count.end() && third != arr[i] && third != arr[j]) {
-                long long currentSum = arr[i] + arr[j] + third;
-                long long currentCount = 1LL * count[arr[i]] * count[arr[j]] * count[third];
+    int n;  std::cin >> n;
+    std::vector<std::string> s(n);
+    for (auto &i : s) std::cin >> i;
 
-                // Cập nhật kết quả nếu tìm được bộ tam hợp mới có tổng lớn hơn
-                if (currentSum > maxSum || (currentSum == maxSum && currentCount > totalCount)) {
-                    maxSum = currentSum;
-                    totalCount = currentCount;
-                }
+    std::string maxSub = "";
+    for (size_t i = 0; i < n-1; i++) {
+        for (size_t j = i+1; j < n; j++) {
+            size_t commonLen = commonSuffix(s[i], s[j]);
+            if (commonLen > maxSub.size() || (commonLen == maxSub.size() && s[i].substr(s[i].size() - commonLen) < maxSub)) {
+                maxSub = s[i].substr(s[i].size() - commonLen);
             }
         }
     }
+    std::cout << maxSub;
 
-    // In kết quả
-    cout << totalCount << "\n";
-    cout << maxSum << "\n";
-
-    return 0;
 }

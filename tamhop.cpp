@@ -4,47 +4,42 @@ using namespace std;
 
 // code by #CodeCrafters_Nholl (danglongnhat)
 
-int main() {
+int main ()  {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    int N;
-    cin >> N;
-
-    vector<int> arr(N);
-    unordered_map<int, int> count;
-
-    for (int i = 0; i < N; ++i) {
-        cin >> arr[i];
-        count[arr[i]]++;
+    int n;  cin >> n;
+    vector<int> a(n);
+    for (int i=0;i<n;i++) {
+        cin >> a[i];
     }
-
-    long long maxSum = 0;
-    long long totalCount = 0;
-
-    // Duyệt qua tất cả các bộ tam hợp có thể
-    for (int i = 0; i < N; ++i) {
-        for (int j = i + 1; j < N; ++j) {
-            int third = 2 * arr[j] - arr[i];
-            
-            // Kiểm tra xem third có trong dãy không và third không trùng với i và j
-            if (count.find(third) != count.end() && third != arr[i] && third != arr[j]) {
-                long long currentSum = arr[i] + arr[j] + third;
-                long long currentCount = 1LL * count[arr[i]] * count[arr[j]] * count[third];
-
-                // Cập nhật kết quả nếu tìm được bộ tam hợp mới có tổng lớn hơn
-                if (currentSum > maxSum || (currentSum == maxSum && currentCount > totalCount)) {
-                    maxSum = currentSum;
-                    totalCount = currentCount;
+    long long dem = 0;
+    long long max = -1000000001;
+    sort(a.begin(), a.end());
+    for (int i = 0 ;i < n-2 ; i++) {
+        for (int j = i+1; j<n-1;j++) {
+            int l = j + 1;
+            int r = n - 1;
+            int m = (l + r) / 2;
+            while (l < r) {
+                if (a[j]*2 == a[i]+a[m]) {
+                    dem++;
+                    if (max < 3*a[j]) {
+                        max = 3*a[j];
+                    }
+                    break;
+                }
+                else if (a[m]+a[i] < 2*a[j]) {
+                    l = m + 1;
+                }
+                else {
+                    r = m - 1;
                 }
             }
         }
     }
-
-    // In kết quả
-    cout << totalCount << "\n";
-    cout << maxSum << "\n";
-
+    cout << dem << endl;
+    cout << max;
     return 0;
 }

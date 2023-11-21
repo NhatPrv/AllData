@@ -25,35 +25,32 @@ int main ()  {
         }
         return 0;
     }
-
-    int index = 0;
+    int l = 0, r = -1;
     char c = '9';
-    while (vec.size() > k) {
-        while (index > 0 && vec[index] == '0') {
-            index ++;
-            c = '9';
-        }
-        for (int i=index;i<vec.size()>k;) {
-            if (vec.size() <= k) break;
+    while (l < vec.size() && vec.size() > k) {
+        if (c != '0') c = (char)((int)c - 1);
+        else c = '9';
+        l = r+1;  r = vec.size();
+        for (int i = l; i < vec.size(); i++) {
             if (vec[i] == '0') {
-                c = (char)((int)c - 1);
+                r = i;
                 break;
             }
-            else if (vec[i] != c) {
-                i++;
-            }
-            else if (vec[i] == c) {
-                vec.erase(vec.begin() + i);
-            }
         }
-        if (c == '0') c = '9';
-        cout << " ))) ";
+        while (vec.size() > k && c != '0') {  
+            for (int i = l; i < r && vec.size() > k;) {
+                if (vec[i] == '0') {
+                    break;
+                }
+                else if (vec[i] == c) {
+                    vec.erase(vec.begin() + i);
+                    r--;
+                }
+                else i++;
+            }
+            c = (char)((int)c - 1);
+        }
     }
-
-    for (int i=0;i<vec.size();i++) {
-        cout << vec[i];
-    }
-    
-
+    for (char c : vec) cout << c;
     return 0;
 }

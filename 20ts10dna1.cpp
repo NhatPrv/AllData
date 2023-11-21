@@ -1,19 +1,27 @@
-#pragma GCC optimize("O3,unroll-loops")
-#include <bits/stdc++.h>
-using namespace std;
+#pragma GCC optimize("03,unroll-loops")
+#include <iostream>
 
-// code by #CodeCrafters_Nholl (danglongnhat)
+//  code by #CodeCrafters_Nholl (danglongnhat)
 
-int main ()  {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
+int main() {
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    long long m, n;
+    std::cin >> m >> n;
+    freopen("PHANSO.inp", "r", stdin);
+    freopen("PHANSO.out", "w", stdout);
 
-    long long n;    cin >> n;
-    long long ans;
-    for (long long i = 2; i <= n ; i*=2) {
-        ans = i;
+    int count = 0;
+    
+    for (long long p = 1; p < m; ++p) {
+        for (long long q = 1; q < n; ++q) {
+            if ((m + p) % (n + q) == 0) {
+                count++;
+            }
+        }
     }
-    cout << ans;
+    std::cout << count << std::endl;
+
     return 0;
 }
