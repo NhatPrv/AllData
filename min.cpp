@@ -44,7 +44,6 @@ int main ()  {
                 }
                 else if (vec[i] == c) {
                     vec.erase(vec.begin() + i);
-                    r--;
                 }
                 else i++;
             }

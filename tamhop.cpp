@@ -14,32 +14,25 @@ int main ()  {
     for (int i=0;i<n;i++) {
         cin >> a[i];
     }
+    sort(a.begin(), a.end(), greater<int>());
+
     long long dem = 0;
-    long long max = -1000000001;
-    sort(a.begin(), a.end());
-    for (int i = 0 ;i < n-2 ; i++) {
-        for (int j = i+1; j<n-1;j++) {
-            int l = j + 1;
-            int r = n - 1;
-            int m = (l + r) / 2;
-            while (l < r) {
-                if (a[j]*2 == a[i]+a[m]) {
-                    dem++;
-                    if (max < 3*a[j]) {
-                        max = 3*a[j];
-                    }
-                    break;
-                }
-                else if (a[m]+a[i] < 2*a[j]) {
-                    l = m + 1;
-                }
-                else {
-                    r = m - 1;
-                }
+    long long maxVal = -1000000001;
+
+    for (int i = 0; i < n - 2; i++) {
+        for (int j = i + 1; j < n - 1; j++) {
+            int target = 2 * a[j] - a[i];
+            int k = lower_bound(a.begin(), a.end(), target, greater<int>()) - a.begin();
+            
+            if (k < n && a[k] == target) {
+                dem++;
+                maxVal = max(maxVal, 3LL * a[j]);
             }
         }
     }
-    cout << dem << endl;
-    cout << max;
+
+    cout << dem << "\n";
+    cout << maxVal << "\n";
+
     return 0;
 }
