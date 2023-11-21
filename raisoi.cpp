@@ -8,8 +8,8 @@ int main ()  {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    // freopen("RAISOI.INP", "r", stdout);
-    // freopen("RAISOI.OUT", "w", stdout);
+    freopen("RAISOI.INP", "r", stdin);
+    freopen("RAISOI.OUT", "w", stdout);
 
     int n;  cin >> n;
     vector<long long> a(n+1);
